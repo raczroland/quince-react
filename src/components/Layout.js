@@ -5,8 +5,10 @@ import 'react-table/react-table.css';
 
 import Modal from 'react-modal';
 
+import PersonForm from './PersonForm';
+
 import { connect } from "react-redux"
-import { fetchPersons, removePerson } from '../actions/personsActions';
+import { fetchPersons, removePerson, addPerson } from '../actions/personsActions';
 
 Modal.setAppElement('#root');
 
@@ -17,7 +19,8 @@ const customStyles = {
       right                 : 'auto',
       bottom                : 'auto',
       marginRight           : '-50%',
-      transform             : 'translate(-50%, -50%)'
+      transform             : 'translate(-50%, -50%)',
+      width                 : '600px'
     }
   };
 
@@ -59,18 +62,26 @@ export class Layout extends React.Component {
                 ]}
                 defaultPageSize={10}
             />
+            <div className="my-3">
+                <h3>Data dump</h3>
+                <textarea className="json-code w-100" readOnly value={JSON.stringify(this.props.persons, null, 2)}></textarea>
+            </div>
             <Modal
                 isOpen={this.state.modalIsOpen}
                 onRequestClose={this.closeModal.bind(this)}
                 style={customStyles}
             >
-            Add
+                <PersonForm onSubmit={this.addPerson.bind(this)} onCancel={this.closeModal.bind(this)} />
             </Modal>
         </div>);
     }
 
     removePerson(person) {
         this.props.dispatch(removePerson(person));
+    }
+
+    addPerson(person) {
+        this.props.dispatch(addPerson(person));
     }
 
 }
