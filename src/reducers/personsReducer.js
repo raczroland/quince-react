@@ -4,6 +4,8 @@ export default function reducer(state = [], action) {
             return [...state, action.payload];
         case 'REMOVE_PERSON':
             return state.filter(person => JSON.stringify(person) !== JSON.stringify(action.payload));
+            case 'FETCH_PERSONS_FULFILLED':
+                return [...action.payload];
         default:
             return state;
     }
