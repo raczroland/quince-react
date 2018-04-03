@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-import Layout from './components/Layout';
 import { Provider } from "react-redux";
+
+import './App.css';
+import Layout from './components/Layout';
 import store from "./store";
 
 class App extends Component {
