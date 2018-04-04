@@ -35,14 +35,37 @@ export class Layout extends React.Component {
         this.props.dispatch(fetchPersons());
     }
 
+    /**
+     * Open the form modal
+     */
     openModal() {
         this.setState({modalIsOpen: true});
     }
 
+    /**
+     * Close the form modal.
+     */
     closeModal() {
         this.setState({modalIsOpen: false});
     }
 
+    /**
+     * Remove the given person from the list.
+     */
+    removePerson(person) {
+        this.props.dispatch(removePerson(person));
+    }
+
+    /**
+     * Add the given person to the list.
+     */
+    addPerson(person) {
+        this.props.dispatch(addPerson(person));
+    }
+
+    /**
+     * Render method.
+     */
     render() {
         return (<div className="container mt-3">
             <div className="my-3">
@@ -74,20 +97,6 @@ export class Layout extends React.Component {
         </div>);
     }
 
-    /**
-     * Remove the given person from the list.
-     */
-    removePerson(person) {
-        this.props.dispatch(removePerson(person));
-    }
-
-    /**
-     * Add the given person to the list.
-     */
-    addPerson(person) {
-        this.props.dispatch(addPerson(person));
-    }
-
 }
 
 const stateMap = (state) => {
@@ -96,5 +105,5 @@ const stateMap = (state) => {
     };
 };
 
-//?
+//NOTE @connect() is not working with ES6 directly
 export default connect(stateMap)(Layout);

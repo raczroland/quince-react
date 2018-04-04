@@ -11,7 +11,6 @@ export default class PersonForm extends React.Component {
             nick: '',
             employee: false
         };
-    
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -28,7 +27,11 @@ export default class PersonForm extends React.Component {
         event.preventDefault();
     }
   
+    /**
+     * Render method.
+     */
     render() {
+        const isSubmitEnabled = this.state.name.length > 0;
         return (
             <form onSubmit={this.handleSubmit}>
                 <div className="form-group row">
@@ -64,7 +67,7 @@ export default class PersonForm extends React.Component {
                 <div className="form-group row">
                     <div className="col-sm-2"></div>
                     <div className="col-sm-10">
-                        <button type="submit" className="btn btn-primary mx-2">Add</button>
+                        <button type="submit" className="btn btn-primary mx-2" disabled={!isSubmitEnabled}>Add</button>
                         <button className="btn btn-secondary mx-2" onClick={this.props.onCancel}>Cancel</button>
                     </div>
                 </div>
