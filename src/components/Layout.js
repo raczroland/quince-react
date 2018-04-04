@@ -7,27 +7,32 @@ import { connect } from "react-redux"
 
 import PersonForm from './PersonForm';
 import { fetchPersons, removePerson, addPerson } from '../actions/personsActions';
+import Graph from './Graph';
 
 Modal.setAppElement('#root');
 
-const customStyles = {
+/**
+ * Styles for the modals.
+ */
+const modalStyles = {
     content : {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-      width: '600px'
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+        width: '600px'
     }
-  };
+};
 
 export class Layout extends React.Component {
 
     constructor() {
         super();
         this.state = {
-            modalIsOpen: false
+            isFormModalOpen: false,
+            isGraphModalOpen: false,
         };
     }
 
@@ -38,15 +43,29 @@ export class Layout extends React.Component {
     /**
      * Open the form modal
      */
-    openModal() {
-        this.setState({modalIsOpen: true});
+    openFormModal() {
+        this.setState({isFormModalOpen: true});
     }
 
     /**
      * Close the form modal.
      */
-    closeModal() {
-        this.setState({modalIsOpen: false});
+    closeFormModal() {
+        this.setState({isFormModalOpen: false});
+    }
+
+    /**
+     * Open the form modal
+     */
+    openGraphModal() {
+        this.setState({isGraphModalOpen: true});
+    }
+
+    /**
+     * Close the form modal.
+     */
+    closeGraphModal() {
+        this.setState({isGraphModalOpen: false});
     }
 
     /**
@@ -69,7 +88,8 @@ export class Layout extends React.Component {
     render() {
         return (<div className="container mt-3">
             <div className="my-3">
-                <button className="btn btn-primary" onClick={this.openModal.bind(this)}>Add</button>
+                <button className="btn btn-primary mx-2" onClick={this.openFormModal.bind(this)}>Add</button>
+                <button className="btn btn-secondary mx-2" onClick={this.openGraphModal.bind(this)}>Graph</button>
             </div>
             <ReactTable
                 data={this.props.persons}
@@ -88,11 +108,18 @@ export class Layout extends React.Component {
                 <textarea className="json-code w-100" readOnly value={JSON.stringify(this.props.persons, null, 2)}></textarea>
             </div>
             <Modal
-                isOpen={this.state.modalIsOpen}
-                onRequestClose={this.closeModal.bind(this)}
-                style={customStyles}
+                isOpen={this.state.isFormModalOpen}
+                onRequestClose={this.closeFormModal.bind(this)}
+                style={modalStyles}
             >
-                <PersonForm onSubmit={this.addPerson.bind(this)} onCancel={this.closeModal.bind(this)} />
+                <PersonForm onSubmit={this.addPerson.bind(this)} onCancel={this.closeFormModal.bind(this)} />
+            </Modal>
+            <Modal
+                isOpen={this.state.isGraphModalOpen}
+                onRequestClose={this.closeGraphModal.bind(this)}
+                style={modalStyles}
+            >
+                <Graph data={this.props.persons} />
             </Modal>
         </div>);
     }

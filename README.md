@@ -6,17 +6,19 @@
  * Redux
  * Bootstrap
  * Font Awesome
- * react-native-svg-charts
+ * recharts
 
 ## Notes
 
 These are some decisions for the simplicity (or because it was not specified).
 
+ * This is my first React app. :)
  * The app is mocking the backend.
  * In the form the only required input is the name.
  * The JSON contains an entry with a string age (":)"). For this reason and because the mockup shows a text input for the age:
    * The input has a text type. In a real-world scenario it should have a number type with a validator.
    * The chart gets a filtered data set.
+ * The React version of this app uses a bar chart (insted of the Angualr version's pie chart).
 
 ## Development mode
 
